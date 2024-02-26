@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { format } from 'sql-formatter';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,28 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'my-angular-input-editor';
+  inputEditor!: FormGroup;
+  highlightedScript = '';
+  constructor(private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm() {
+    this.inputEditor = this.formBuilder.group({
+      script: '',
+    });
+  }
+
+  formatar() {
+    this.inputEditor.setValue({
+      script: format(this.inputEditor.value.script),
+    });
+  }
+
+  highlightKeywords(script: string) {
+   
+  }
+
 }
